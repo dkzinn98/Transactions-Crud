@@ -1,59 +1,58 @@
 # CRUD de Transações Financeiras
 
-## Descrição
-Aplicativo web desenvolvido para gerenciar transações financeiras, permitindo o cadastro, listagem, edição e exclusão de receitas e despesas. O projeto é composto por um frontend em Angular, backend em PHP (Laravel) e banco de dados PostgreSQL.
+## Sobre o Projeto
 
----
+Este é um projeto simples de uma aplicação web para gerenciar transações financeiras. Com ele, você pode cadastrar, listar, editar e excluir receitas e despesas. O mesmo formulário é usado para registrar tanto receitas quanto despesas.
 
-## Tecnologias Utilizadas
-- **Frontend:** Angular 16+
-- **Backend:** PHP (Laravel 11)
+## Tecnologias Usadas
+
+- **Frontend:** Angular (versão 16 ou superior)
+- **Backend:** PHP com Laravel
 - **Banco de Dados:** PostgreSQL
 
----
-
-## Estrutura do Projeto
-```
-banco => Scripts SQL para criação do banco de dados
-backend => Código do backend (Laravel)
-frontend => Código do frontend (Angular)
-# Instruções para rodar o projeto
+## Estrutura de Pastas
 
 ```
-
----
-
-## Configuração do Banco de Dados
-
-### 1. Criar o Banco de Dados
-```sql
-CREATE DATABASE desafio_uitec;
+banco/      => Scripts SQL para criar o banco de dados
+backend/    => Código do backend (Laravel)
+frontend/   => Código do frontend (Angular)
 ```
 
-### 2. Executar o Script SQL
+## Como Configurar o Projeto
+
+### 1. Configurar o Banco de Dados
+
+- Certifique-se de ter o PostgreSQL instalado.
+- Crie o banco de dados chamado `desafio_uitec`.
+- Execute o script SQL localizado em `banco/script.sql` para criar as tabelas e inserir dados de exemplo.
+
 ```bash
 psql -U postgres -d desafio_uitec -f banco/script.sql
 ```
 
-*Certifique-se de ajustar o nome do usuário e senha conforme sua configuração do PostgreSQL.*
+### 2. Configurar o Backend (Laravel)
 
----
+1. Navegue até a pasta do backend:
 
-## Backend (Laravel)
-
-### 1. Navegue até a pasta do backend:
 ```bash
 cd backend
 ```
 
-### 2. Instale as dependências do Laravel:
+2. Instale as dependências do Laravel:
+
 ```bash
 composer install
 ```
 
-### 3. Configure o arquivo `.env`:
-Copie o `.env.example` para `.env` e atualize as configurações do banco de dados:
+3. Copie o arquivo `.env.example` para `.env`:
+
 ```bash
+cp .env.example .env
+```
+
+4. Configure as credenciais do banco de dados no arquivo `.env`:
+
+```
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
@@ -62,79 +61,53 @@ DB_USERNAME=postgres
 DB_PASSWORD=sua_senha
 ```
 
-### 4. Gere a chave da aplicação:
+5. Rode as migrações (se necessário):
+
 ```bash
-php artisan key:generate
+php artisan migrate
 ```
 
-### 5. Rode as migrações e seeders (se aplicável):
-```bash
-php artisan migrate --seed
-```
+6. Inicie o servidor do Laravel:
 
-### 6. Inicie o servidor Laravel:
 ```bash
 php artisan serve
 ```
-O backend estará disponível em: [http://localhost:8000](http://localhost:8000)
 
----
+O backend estará disponível em `http://localhost:8000`.
 
-## Frontend (Angular)
+### 3. Configurar o Frontend (Angular)
 
-### 1. Navegue até a pasta do frontend:
+1. Navegue até a pasta do frontend:
+
 ```bash
 cd frontend
 ```
 
-### 2. Instale as dependências do Angular:
+2. Instale as dependências do Angular:
+
 ```bash
 npm install
 ```
 
-### 3. Inicie o servidor Angular:
+3. Inicie o servidor do Angular:
+
 ```bash
 ng serve
 ```
-O frontend estará disponível em: [http://localhost:4200](http://localhost:4200)
 
----
+O frontend estará disponível em `http://localhost:4200`.
 
-## Endpoints da API
+## Funcionalidades do Projeto
 
-### Categorias
-- `GET /api/categorias` - Listar categorias
+- **Cadastrar Transações:** Informe a descrição, valor, tipo (receita ou despesa) e categoria.
+- **Listar Transações:** Visualize todas as transações cadastradas.
+- **Filtrar por Tipo:** Filtro para receitas ou despesas.
+- **Editar Transações:** Atualize as informações de uma transação existente.
+- **Excluir Transações:** Remova transações que não forem mais necessárias.
 
-### Transações
-- `GET /api/transacoes` - Listar transações
-- `POST /api/transacoes` - Criar nova transação
-- `PUT /api/transacoes/{id}` - Atualizar transação existente
-- `DELETE /api/transacoes/{id}` - Excluir transação
+## Considerações Finais
 
----
+Este projeto foi desenvolvido para fins de aprendizado e para o desafio técnico da Uitec. Qualquer dúvida ou sugestão, sinta-se à vontade para entrar em contato.
 
-## Funcionalidades
-
-- ✅ Cadastro de transações (receitas e despesas)
-- ✅ Filtragem por tipo de transação
-- ✅ Edição e exclusão de transações
-- ✅ Validação de campos obrigatórios
-- ✅ Integração com PostgreSQL
-
----
-
-## Possíveis Erros e Correções
-- **Erro de conexão com o banco:** Verifique o arquivo `.env` no backend.
-- **API não responde:** Verifique se o servidor do Laravel está rodando.
-- **Problemas no Angular:** Execute `npm install` para garantir que todas as dependências estão instaladas.
-
----
-
-## Contribuições
-Sinta-se à vontade para abrir issues ou enviar pull requests para melhorias.
-
----
-
-## Licença
-Este projeto está sob a licença MIT.
+Bom código! 🚀
 
