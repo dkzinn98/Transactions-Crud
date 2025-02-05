@@ -1,0 +1,85 @@
+<mat-toolbar color="primary">
+  <span>Lista de Transações</span>
+  <span class="spacer"></span>
+  <button mat-raised-button color="accent" [routerLink]="['/nova-transacao']">
+    <mat-icon>add</mat-icon> Nova Transação
+  </button>
+</mat-toolbar>
+
+<!-- => Filtro por Tipo de Transação -->
+
+<mat-card class="filter-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Filtrar por Tipo</mat-label>
+    <mat-select [(value)]="filtroTipo" (selectionChange)="filtrarTransacoes()">
+      <mat-option value="">Todos</mat-option>
+      <mat-option value="receita">Receitas</mat-option>
+      <mat-option value="despesa">Despesas</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
+
+<!-- => Tabela de Transações -->
+
+<mat-card class="table-container">
+  <table mat-table [dataSource]="transacoesFiltradas" class="mat-elevation-z8" matSort>
+
+    <!-- => Coluna: Descrição -->
+
+    <ng-container matColumnDef="descricao">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Descrição</th>
+      <td mat-cell *matCellDef="let transacao">{{ transacao.descricao }}</td>
+    </ng-container>
+
+    <!-- => Coluna: Valor -->
+
+    <ng-container matColumnDef="valor">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor</th>
+      <td mat-cell *matCellDef="let transacao">
+        <span [ngClass]="{
+          'valor-positivo': transacao.valor > 0,
+          'valor-negativo': transacao.valor < 0
+        }">
+          {{ transacao.valor | currency:'BRL' }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- => Coluna: Tipo -->
+
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+      <td mat-cell *matCellDef="let transacao">{{ transacao.tipo | titlecase }}</td>
+    </ng-container>
+
+    <!-- => Coluna: Categoria -->
+
+    <ng-container matColumnDef="categoria">
+      <th mat-header-cell *matHeaderCellDef>Categoria</th>
+      <td mat-cell *matCellDef="let transacao">{{ transacao.categoria?.nome }}</td>
+    </ng-container>
+
+    <!-- => Coluna: Ações -->
+
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef>Ações</th>
+      <td mat-cell *matCellDef="let transacao">
+        <button mat-icon-button color="primary" (click)="editarTransacao(transacao)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deletarTransacao(transacao.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- => Exibição de mensagem caso não haja transações -->
+
+  <div *ngIf="transacoesFiltradas.length === 0" class="no-data">
+    Nenhuma transação encontrada.
+  </div>
+</mat-card>

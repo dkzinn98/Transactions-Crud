@@ -1,0 +1,95 @@
+<mat-toolbar color="primary">
+  <span>{{ transacao?.id ? 'Editar Transação' : 'Nova Transação' }}</span>
+  <span class="spacer"></span>
+  <button mat-icon-button color="accent" (click)="router.navigate(['/'])">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-card class="form-container">
+  <form (ngSubmit)="salvarTransacao()" #transacaoForm="ngForm">
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Descrição</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Ex: Férias"
+        [(ngModel)]="transacao.descricao"
+        name="descricao"
+        required
+      />
+    </mat-form-field>
+
+    <!-- => Valor -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Valor</mat-label>
+      <input
+        matInput
+        type="number"
+        placeholder="0,00"
+        [(ngModel)]="transacao.valor"
+        name="valor"
+        required
+      />
+    </mat-form-field>
+
+    <!-- => Tipo de Transação -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Tipo</mat-label>
+      <mat-select
+        [(ngModel)]="transacao.tipo"
+        name="tipo"
+        (selectionChange)="filtrarCategorias()"
+        required
+      >
+        <mat-option value="">Selecione</mat-option>
+        <mat-option value="receita">Receita</mat-option>
+        <mat-option value="despesa">Despesa</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- => Categoria (Obrigatória) -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Categoria</mat-label>
+      <mat-select
+        [(ngModel)]="transacao.categoria_id"
+        name="categoria_id"
+        required
+        #categoriaCtrl="ngModel"
+      >
+        <mat-option value="">Selecione</mat-option>
+        <mat-option
+          *ngFor="let categoria of categoriasFiltradas"
+          [value]="categoria.id"
+        >
+          {{ categoria.nome }}
+        </mat-option>
+      </mat-select>
+      <!-- => Mensagem de erro quando a categoria não for selecionada -->
+      <mat-error *ngIf="categoriaCtrl.invalid && categoriaCtrl.touched">
+        Categoria é obrigatória.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- => Botões de Ação -->
+    <div class="button-group">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!transacaoForm.form.valid"
+      >
+        <mat-icon>save</mat-icon> Salvar
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="router.navigate(['/'])"
+      >
+        <mat-icon>cancel</mat-icon> Cancelar
+      </button>
+    </div>
+  </form>
+</mat-card>

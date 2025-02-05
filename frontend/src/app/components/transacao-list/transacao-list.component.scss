@@ -1,0 +1,93 @@
+.table-container {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+  }
+  
+  .filter-container {
+    margin: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  mat-toolbar {
+    background: deeppink;
+    color: white;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  mat-header-cell {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    font-weight: bold;
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #0d47a1;
+  }
+  
+  mat-cell {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .valor-positivo {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .valor-negativo {
+    color: red;
+    font-weight: bold;
+  }
+  
+  button {
+    margin: 0 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .no-data {
+    text-align: center;
+    padding: 20px;
+    color: #757575;
+    font-style: italic;
+  }
+  
+  /* Responsiv */
+  @media (max-width: 768px) {
+    .filter-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    mat-header-cell,
+    mat-cell {
+      font-size: 12px;
+      padding: 8px;
+    }
+  
+    button {
+      margin: 4px 0;
+    }
+  }
+  
